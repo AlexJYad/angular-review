@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { ICustomer } from './customer.interface';
+import { CustomerItem } from '../customer-item/customer-item';
 
 @Component({
   selector: 'app-customer',
-  imports: [],
+  imports: [CustomerItem],
   templateUrl: './customer.html',
   styleUrl: './customer.css',
 })
 export class Customer {
-  costumers: ICustomer[] = [
+  customers: ICustomer[] = [
     { name: 'Juan García', avatar: 'https://i.pravatar.cc/150?u=juangarcia' },
     { name: 'María López', avatar: 'https://i.pravatar.cc/150?u=marialopez' },
     { name: 'Carlos Rodríguez', avatar: 'https://i.pravatar.cc/150?u=carlosrodriguez' },
@@ -20,4 +21,12 @@ export class Customer {
     { name: 'Miguel Torres', avatar: 'https://i.pravatar.cc/150?u=migueltorres' },
     { name: 'Sofia Ruiz', avatar: 'https://i.pravatar.cc/150?u=sofiaruiz' },
   ];
+
+  HandleDeleteCustomer(name: string) {
+    //  console.log(`Customer deleted: ${name}`);
+    this.customers.splice(
+      this.customers.findIndex((customer) => customer.name === name),
+      1,
+    );
+  }
 }
