@@ -1,0 +1,2 @@
+<input type="text" [value]="name()" (input)="name.set($event.target.value)">
+<button type="submit" (click)="submit()" [disabled]="!isValid()">Submit</button>
