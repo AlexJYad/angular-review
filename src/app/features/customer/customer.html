@@ -1,8 +1,11 @@
 <ul class="grid grid-cols-2 gap-4">
-   @for(customer of customers; track $index) {
+   @for (customer of customers(); track customer.name) {
    <li>
       <app-customer-item [customerItem]=customer (customerDelete)="HandleDeleteCustomer($event)"
          class="flex items-center gap-2"></app-customer-item>
    </li>
    }
 </ul>
+
+
+<app-form (onAddCustomer)="addCustomer($event)" />

@@ -1,4 +1,4 @@
-import { Component, signal, computed } from '@angular/core';
+import { Component, signal, computed, output } from '@angular/core';
 
 @Component({
   selector: 'app-form',
@@ -9,9 +9,15 @@ import { Component, signal, computed } from '@angular/core';
 export class Form {
   name = signal('');
 
+  onAddCustomer = output<string>();
+
   isValid = computed(() => this.name().length > 0);
 
   submit() {
-    console.log({ name: this.name() });
+    if (!this.isValid) return;
+
+    this.onAddCustomer.emit(this.name());
+
+    this.name.set('');
   }
 }

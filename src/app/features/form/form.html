@@ -1,2 +1,2 @@
-<input type="text" [value]="name()" (input)="name.set($event.target.value)">
+<input type="text" [value]="name()" (input)="name.set($event.target.value)" placeholder="Input name">
 <button type="submit" (click)="submit()" [disabled]="!isValid()">Submit</button>

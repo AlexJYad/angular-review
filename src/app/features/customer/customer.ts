@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ICustomer } from './customer.interface';
 import { CustomerItem } from '../customer-item/customer-item';
+import { Form } from '../form/form';
 
 @Component({
   selector: 'app-customer',
-  imports: [CustomerItem],
+  imports: [CustomerItem, Form],
   templateUrl: './customer.html',
   styleUrl: './customer.css',
 })
 export class Customer {
-  customers: ICustomer[] = [
+  customers = signal<ICustomer[]>([
     { name: 'Juan García', avatar: 'https://i.pravatar.cc/150?u=juangarcia' },
     { name: 'María López', avatar: 'https://i.pravatar.cc/150?u=marialopez' },
     { name: 'Carlos Rodríguez', avatar: 'https://i.pravatar.cc/150?u=carlosrodriguez' },
@@ -20,13 +21,17 @@ export class Customer {
     { name: 'Elena Jiménez', avatar: 'https://i.pravatar.cc/150?u=elenajimenez' },
     { name: 'Miguel Torres', avatar: 'https://i.pravatar.cc/150?u=migueltorres' },
     { name: 'Sofia Ruiz', avatar: 'https://i.pravatar.cc/150?u=sofiaruiz' },
-  ];
+  ]);
 
   HandleDeleteCustomer(name: string) {
-    //  console.log(`Customer deleted: ${name}`);
-    this.customers.splice(
-      this.customers.findIndex((customer) => customer.name === name),
-      1,
-    );
+    this.customers.update((list) => list.filter((c) => c.name !== name));
+  }
+
+  addCustomer(name: string) {
+    const customer: ICustomer = {
+      name,
+      avatar: `https://i.pravatar.cc/150?u=${name.replace(' ', '')}`,
+    };
+    this.customers.update((list) => [...list, customer]);
   }
 }
