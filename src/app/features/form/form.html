@@ -1,2 +1,54 @@
-<input type="text" [value]="name()" (input)="name.set($event.target.value)" placeholder="Input name">
-<button type="submit" (click)="submit()" [disabled]="!isValid()">Submit</button>
+<form
+  class="flex max-w-sm flex-col gap-4"
+  (submit)="$event.preventDefault(); submit()"
+>
+  <div class="flex flex-col gap-1">
+    <label for="name" class="text-sm font-medium text-gray-700">
+      Name
+    </label>
+
+    <input
+      id="name"
+      type="text"
+      [formField]="customerForm.name"
+      placeholder="Input name"
+      class="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    >
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="email" class="text-sm font-medium text-gray-700">
+      Email
+    </label>
+
+    <input
+      id="email"
+      type="email"
+      [formField]="customerForm.email"
+      placeholder="Input email"
+      class="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    >
+  </div>
+
+  <div class="flex flex-col gap-1">
+    <label for="phone" class="text-sm font-medium text-gray-700">
+      Phone
+    </label>
+
+    <input
+      id="phone"
+      type="tel"
+      [formField]="customerForm.phone"
+      placeholder="Input phone"
+      class="rounded-md border border-gray-300 px-3 py-2 text-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+    >
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="customerForm().invalid()"
+    class="rounded-md bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+  >
+    Submit
+  </button>
+</form>

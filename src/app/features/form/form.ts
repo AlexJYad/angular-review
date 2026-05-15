@@ -1,23 +1,44 @@
-import { Component, signal, computed, output } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
+import { FormField, email, form, required } from '@angular/forms/signals';
+
+interface CustomerForm {
+  name: string;
+  email: string;
+  phone: string;
+}
 
 @Component({
   selector: 'app-form',
-  imports: [],
+  imports: [FormField],
   templateUrl: './form.html',
   styleUrl: './form.css',
 })
 export class Form {
-  name = signal('');
+  onAddCustomer = output<CustomerForm>();
 
-  onAddCustomer = output<string>();
+  customer = signal<CustomerForm>({
+    name: '',
+    email: '',
+    phone: '',
+  });
 
-  isValid = computed(() => this.name().length > 0);
+  customerForm = form(this.customer, (customer) => {
+    required(customer.name);
+    required(customer.email);
+    email(customer.email);
+  });
 
   submit() {
-    if (!this.isValid) return;
+    if (this.customerForm().invalid()) {
+      return;
+    }
 
-    this.onAddCustomer.emit(this.name());
+    this.onAddCustomer.emit(this.customerForm().value());
 
-    this.name.set('');
+    this.customerForm().reset({
+      name: '',
+      email: '',
+      phone: '',
+    });
   }
 }

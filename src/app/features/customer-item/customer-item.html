@@ -1,3 +1,9 @@
-<img [src]="customerItem().avatar" [alt]="customerItem().name">
-<p>{{ customerItem().name }}</p>
+<img [src]="customerItem().avatar" [alt]="customerItem().name" />
+
+<div>
+  <p>{{ customerItem().name }}</p>
+  <p>{{ customerItem().email }}</p>
+  <p>{{ customerItem().phone }}</p>
+</div>
+
 <app-button-trash (click)="deleteCustomer()"></app-button-trash>
