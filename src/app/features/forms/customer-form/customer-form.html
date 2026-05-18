@@ -1,0 +1,27 @@
+<form class="flex flex-col">
+   <div class="flex m-4 gap-4 flex-col">
+      <input type="text" placeholder="Input name" [formField]="customerForm.name"
+         class="w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 ">
+      @if (customerForm.name().touched() && customerForm.name().errors()) {
+      <span class="error">{{ customerForm.name().errors()![0].message }}</span>
+      }
+   </div>
+   <!-- Поле email -->
+   <div class="flex m-4 gap-4 flex-col">
+      <input type="email" [formField]="customerForm.email" placeholder="Email"
+         class="w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 " />
+      @if (customerForm.email().touched() && customerForm.email().errors()) {
+      <span class="error">{{ customerForm.email().errors()![0].message }}</span>
+      }
+   </div>
+   <div class="flex m-4 gap-4 flex-col">
+      <input type="url" [formField]="customerForm.avatar" placeholder="Avatar URL (optional)"
+         class="w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600" />
+      @if (customerForm.avatar().touched() && customerForm.avatar().errors()) {
+      <span class="error">{{ customerForm.avatar().errors()![0].message }}</span>
+      }
+   </div>
+   <button type="button" (click)="onSubmit()" [disabled]="customerForm().submitting()"
+      class="m-4 rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">{{
+      customerForm().submitting() ? 'Sending...' : 'Submit' }}</button>
+</form>
